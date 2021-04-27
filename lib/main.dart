@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'bloc/ticker.dart';
 import 'bloc/timer_bloc.dart';
-import 'pages/timer_widget.dart';
+import 'widgets/timer_widget.dart';
 
 void main() {
   runApp(MyApp());
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark(),
       home: BlocProvider(
         create: (context) => TimerBloc(ticker: Ticker()),
-        child: Timer(),
+        child: TimerWidget(),
       ),
     );
   }
