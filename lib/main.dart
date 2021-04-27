@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/ticker.dart';
+import 'bloc/timer_bloc.dart';
 import 'pages/home_page.dart';
 
 void main() {
@@ -12,7 +15,10 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Timer Demo',
       theme: ThemeData.dark(),
-      home: HomePage(),
+      home: BlocProvider(
+        create: (context) => TimerBloc(ticker: Ticker()),
+        child: HomePage(),
+      ),
     );
   }
 }
