@@ -22,6 +22,22 @@ class TimerBloc extends Bloc<TimerEvent, TimerState> {
   Stream<TimerState> mapEventToState(
     TimerEvent event,
   ) async* {
-    // TODO: implement mapEventToState
+    if (event is TimerStarted) {
+      yield* _mapTimerStartedToState(event);
+    }
+  }
+
+  Stream<TimerState> _mapTimerStartedToState(TimerStarted start) async* {
+    yield TimerRunInProgress(start.duration);
+    _tickerSubscription?.cancel();
+    _tickerSubscription = _ticker
+        .tick(ticks: start.duration)
+        .listen((duration) => add(TimerTicked(duration: duration)));
+  }
+
+  @override
+  Future<void> close() {
+    _tickerSubscription?.cancel();
+    return super.close();
   }
 }
